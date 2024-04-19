@@ -1,4 +1,4 @@
-import 'dart:collection';
+// ignore_for_file: library_private_types_in_public_api, unused_element, avoid_print, avoid_function_literals_in_foreach_calls, sized_box_for_whitespace, prefer_const_constructors, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -6,11 +6,13 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:io';
 import 'package:camera/camera.dart';
-import 'package:senti_app/apps/login.dart';
-import 'package:senti_app/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'login.dart';
+
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -67,7 +69,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _startContinuousProcessing() async {
     while (true) {
-      await Future.delayed(Duration(seconds: 3)); // Adjust interval as needed
+      await Future.delayed(
+          const Duration(seconds: 3)); // Adjust interval as needed
       await processEmotion();
     }
   }
@@ -198,7 +201,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Emotion Recognition App'),
+        title: const Text('Emotion Recognition App'),
       ),
       body: _getBody(),
       bottomNavigationBar: BottomNavigationBar(
@@ -260,14 +263,15 @@ class _MyHomePageState extends State<MyHomePage> {
                         bottom: 10,
                         left: 150,
                         child: Container(
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                            color: Color.fromARGB(47, 0, 0, 0).withOpacity(0.5),
+                            color: const Color.fromARGB(47, 0, 0, 0)
+                                .withOpacity(0.5),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Text(
                             currentEmotion,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                               color: Color.fromARGB(
@@ -279,7 +283,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   );
                 } else {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 }
               },
             ),
@@ -298,7 +302,7 @@ class _MyHomePageState extends State<MyHomePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (recommendedMusic.isEmpty)
-            Text(
+            const Text(
               'No recommended music available',
               style: TextStyle(
                   fontSize: 16, fontWeight: FontWeight.bold, color: Colors.red),
@@ -364,9 +368,9 @@ Widget _getProfileView(BuildContext context) {
           future: _fetchUserData(), // Function to fetch user data
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             } else if (snapshot.hasError) {
-              return Text('Error fetching user data');
+              return const Text('Error fetching user data');
             } else {
               final userData = snapshot.data as Map<String, dynamic>;
               final userName = userData['name'];
@@ -380,32 +384,32 @@ Widget _getProfileView(BuildContext context) {
                 children: [
                   Text(
                     'Name: $userName',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Text(
                     'Email: $userEmail',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Text(
                     'Common Emotion: $commonEmotion',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   // Add your music-related widgets here
 
                   // Division for user profile information
-                  Divider(),
+                  const Divider(),
 
                   // Add a ListTile for logout button
                 ],
@@ -413,10 +417,10 @@ Widget _getProfileView(BuildContext context) {
             }
           },
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         ListTile(
-          title: Text('Logout'),
-          trailing: Icon(Icons.logout),
+          title: const Text('Logout'),
+          trailing: const Icon(Icons.logout),
           onTap: () async {
             final prefs = await SharedPreferences.getInstance();
             final storedUserId = prefs.getString('user_id');
@@ -440,8 +444,8 @@ Widget _getProfileView(BuildContext context) {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: Text('Logout Error'),
-                    content: Text(
+                    title: const Text('Logout Error'),
+                    content: const Text(
                       'Failed to logout. Please try again later.',
                     ),
                     actions: <Widget>[
@@ -449,7 +453,7 @@ Widget _getProfileView(BuildContext context) {
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        child: Text('OK'),
+                        child: const Text('OK'),
                       ),
                     ],
                   );
@@ -459,8 +463,8 @@ Widget _getProfileView(BuildContext context) {
           },
         ),
         ListTile(
-          title: Text('Setting'),
-          trailing: Icon(Icons.settings),
+          title: const Text('Setting'),
+          trailing: const Icon(Icons.settings),
           onTap: () {
             // Perform logout action here
             // _logout();

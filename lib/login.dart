@@ -1,11 +1,17 @@
+// ignore_for_file: avoid_print, use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:senti_app/apps/home.dart';
+import 'package:kavir_face/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'register.dart';
+
 class LoginApp extends StatelessWidget {
+  const LoginApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,14 +19,16 @@ class LoginApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginForm(),
+      home: const LoginForm(),
     );
   }
 }
 
 class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
+
   @override
-  _LoginFormState createState() => _LoginFormState();
+  State<LoginForm> createState() => _LoginFormState();
 }
 
 class _LoginFormState extends State<LoginForm> {
@@ -28,23 +36,23 @@ class _LoginFormState extends State<LoginForm> {
 
   String _email = "";
   String _password = "";
-  bool _isObscurePassword = true;
+  // bool _isObscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: const Text('Login'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               TextFormField(
-                decoration: InputDecoration(labelText: 'Email'),
+                decoration: const InputDecoration(labelText: 'Email'),
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your email';
@@ -55,9 +63,9 @@ class _LoginFormState extends State<LoginForm> {
                   _email = value!;
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Password'),
+                decoration: const InputDecoration(labelText: 'Password'),
                 obscureText: true,
                 validator: (String? value) {
                   if (value == null || value.isEmpty) {
@@ -69,7 +77,7 @@ class _LoginFormState extends State<LoginForm> {
                   _password = value!;
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState != null &&
@@ -133,8 +141,8 @@ class _LoginFormState extends State<LoginForm> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                            title: Text('Login Error'),
-                            content: Text(
+                            title: const Text('Login Error'),
+                            content: const Text(
                               'Failed to login. Please check your credentials.',
                             ),
                             actions: <Widget>[
@@ -142,7 +150,7 @@ class _LoginFormState extends State<LoginForm> {
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
-                                child: Text('OK'),
+                                child: const Text('OK'),
                               ),
                             ],
                           );
@@ -151,19 +159,20 @@ class _LoginFormState extends State<LoginForm> {
                     }
                   }
                 },
-                child: Text('Login'),
+                child: const Text('Login'),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Center(
                 child: GestureDetector(
                   onTap: () {
                     // Navigate to the registration page
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => RegisterApp()),
+                      MaterialPageRoute(
+                          builder: (context) => const RegisterApp()),
                     );
                   },
-                  child: Text(
+                  child: const Text(
                     'Don\'t have an account? Register here',
                     style: TextStyle(
                       color: Colors.blue,
@@ -180,129 +189,134 @@ class _LoginFormState extends State<LoginForm> {
   }
 }
 
-class RegisterApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Register Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: RegisterForm(),
-    );
-  }
-}
+// class RegisterApp extends StatelessWidget {
+//   const RegisterApp({super.key});
 
-class RegisterForm extends StatefulWidget {
-  @override
-  _RegisterFormState createState() => _RegisterFormState();
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Register Demo',
+//       theme: ThemeData(
+//         primarySwatch: Colors.blue,
+//       ),
+//       home: const RegisterForm(),
+//     );
+//   }
+// }
 
-class _RegisterFormState extends State<RegisterForm> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String _name = "";
-  String _email = "";
-  String _password = "";
-  String _confirmPassword = "";
+// class RegisterForm extends StatefulWidget {
+//   const RegisterForm({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Register'),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Name'),
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your name';
-                  }
-                  return null;
-                },
-                onSaved: (String? value) {
-                  _name = value!;
-                },
-              ),
-              SizedBox(height: 20),
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Email'),
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
-                  }
-                  return null;
-                },
-                onSaved: (String? value) {
-                  _email = value!;
-                },
-              ),
-              SizedBox(height: 20),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  // suffixIcon: IconButton(
-                  //   icon: Icon(
-                  //     _isObscurePassword
-                  //         ? Icons.visibility
-                  //         : Icons.visibility_off,
-                  //   ),
-                  //   onPressed: () {
-                  //     setState(() {
-                  //       _isObscurePassword = !_isObscurePassword;
-                  //     });
-                  //   },
-                  // ),
-                ),
-                // obscureText: _isObscurePassword,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your password';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  _password = value!;
-                },
-              ),
-              SizedBox(height: 20),
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Confirm Password'),
-                obscureText: true,
-                validator: (String? value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please confirm your password';
-                  }
-                  if (value != _password) {
-                    return 'Passwords do not match';
-                  }
-                  return null;
-                },
-                onSaved: (String? value) {
-                  _confirmPassword = value!;
-                },
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState != null &&
-                      _formKey.currentState!.validate()) {
-                    _formKey.currentState!.save();
-                    // Perform registration logic here
-                  }
-                },
-                child: Text('Register'),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   _RegisterFormState createState() => _RegisterFormState();
+// }
+
+// class _RegisterFormState extends State<RegisterForm> {
+//   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+//   String _name = "";
+//   String _email = "";
+//   String _password = "";
+//   // String _confirmPassword = "";
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text('Register'),
+//       ),
+//       body: Padding(
+//         padding: const EdgeInsets.all(16.0),
+//         child: Form(
+//           key: _formKey,
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.stretch,
+//             children: <Widget>[
+//               TextFormField(
+//                 decoration: const InputDecoration(labelText: 'Name'),
+//                 validator: (String? value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'Please enter your name';
+//                   }
+//                   return null;
+//                 },
+//                 onSaved: (String? value) {
+//                   _name = value!;
+//                 },
+//               ),
+//               const SizedBox(height: 20),
+//               TextFormField(
+//                 decoration: const InputDecoration(labelText: 'Email'),
+//                 validator: (String? value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'Please enter your email';
+//                   }
+//                   return null;
+//                 },
+//                 onSaved: (String? value) {
+//                   _email = value!;
+//                 },
+//               ),
+//               const SizedBox(height: 20),
+//               TextFormField(
+//                 decoration: const InputDecoration(
+//                   labelText: 'Password',
+//                   // suffixIcon: IconButton(
+//                   //   icon: Icon(
+//                   //     _isObscurePassword
+//                   //         ? Icons.visibility
+//                   //         : Icons.visibility_off,
+//                   //   ),
+//                   //   onPressed: () {
+//                   //     setState(() {
+//                   //       _isObscurePassword = !_isObscurePassword;
+//                   //     });
+//                   //   },
+//                   // ),
+//                 ),
+//                 // obscureText: _isObscurePassword,
+//                 validator: (value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'Please enter your password';
+//                   }
+//                   return null;
+//                 },
+//                 onSaved: (value) {
+//                   _password = value!;
+//                 },
+//               ),
+//               const SizedBox(height: 20),
+//               TextFormField(
+//                 decoration:
+//                     const InputDecoration(labelText: 'Confirm Password'),
+//                 obscureText: true,
+//                 validator: (String? value) {
+//                   if (value == null || value.isEmpty) {
+//                     return 'Please confirm your password';
+//                   }
+//                   if (value != _password) {
+//                     return 'Passwords do not match';
+//                   }
+//                   return null;
+//                 },
+//                 onSaved: (String? value) {
+//                   _confirmPassword = value!;
+//                 },
+//               ),
+//               const SizedBox(height: 20),
+//               ElevatedButton(
+//                 onPressed: () {
+//                   if (_formKey.currentState != null &&
+//                       _formKey.currentState!.validate()) {
+//                     _formKey.currentState!.save();
+//                     // Perform registration logic here
+//                   }
+//                 },
+//                 child: const Text('Register'),
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
