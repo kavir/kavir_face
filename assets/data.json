@@ -1,0 +1,47 @@
+[
+  {
+    "emotion": "Angry",
+    "music_recommendations": [
+      {
+        "album": "Honey",
+        "artist": "Peals",
+        "mood": "Calm",
+        "name": "Essential Attitudes"
+      },
+      {
+        "album": "Event Horizon",
+        "artist": "Airwaves",
+        "mood": "Calm",
+        "name": "Event Horizon"
+      }
+    ]
+  },
+  {
+    "emotion": "Calm",
+    "music_recommendations": [
+      {
+        "album": "A Burden to Bear",
+        "artist": "Emmanuelle Rimbaud",
+        "mood": "Calm",
+        "name": "A Burden to Bear"
+      },
+      {
+        "album": "A La Plage",
+        "artist": "Ron Adelaar",
+        "mood": "Calm",
+        "name": "A La Plage"
+      },{
+        "album": "Honey",
+        "artist": "Peals",
+        "mood": "Calm",
+        "name": "Essential Attitudes"
+      },
+      {
+        "album": "Event Horizon",
+        "artist": "Airwaves",
+        "mood": "Calm",
+        "name": "Event Horizon"
+      }
+    ]
+  }
+]
