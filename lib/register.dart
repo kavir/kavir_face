@@ -1,8 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
-import 'package:senti_app/apps/login.dart';
+
 import 'package:http/http.dart' as http;
+import 'package:kavir_face/login.dart';
 
 class RegisterApp extends StatelessWidget {
+  const RegisterApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -10,14 +15,16 @@ class RegisterApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: RegisterForm(),
+      home: const RegisterForm(),
     );
   }
 }
 
 class RegisterForm extends StatefulWidget {
+  const RegisterForm({super.key});
+
   @override
-  _RegisterFormState createState() => _RegisterFormState();
+  State<RegisterForm> createState() => _RegisterFormState();
 }
 
 class _RegisterFormState extends State<RegisterForm> {
@@ -33,18 +40,18 @@ class _RegisterFormState extends State<RegisterForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Register'),
+        title: const Text('Register'),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'Name'),
+                  decoration: const InputDecoration(labelText: 'Name'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your name';
@@ -55,9 +62,9 @@ class _RegisterFormState extends State<RegisterForm> {
                     _name = value!;
                   },
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextFormField(
-                  decoration: InputDecoration(labelText: 'Email'),
+                  decoration: const InputDecoration(labelText: 'Email'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your email';
@@ -68,7 +75,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     _email = value!;
                   },
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextFormField(
                   decoration: InputDecoration(
                     labelText: 'Password',
@@ -96,7 +103,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     _password = value!;
                   },
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextFormField(
                   decoration: InputDecoration(
                     labelText: 'Confirm Password',
@@ -129,7 +136,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   },
                 ),
 
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () async {
                     if (_formKey.currentState != null &&
@@ -152,7 +159,8 @@ class _RegisterFormState extends State<RegisterForm> {
                         // Registration successful, navigate to login screen
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (context) => LoginForm()),
+                          MaterialPageRoute(
+                              builder: (context) => const LoginForm()),
                         );
                       } else {
                         // Registration failed, show error message
@@ -160,15 +168,15 @@ class _RegisterFormState extends State<RegisterForm> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text('Registration Error'),
-                              content: Text(
+                              title: const Text('Registration Error'),
+                              content: const Text(
                                   'Failed to register. Please try again later.'),
                               actions: <Widget>[
                                 TextButton(
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
-                                  child: Text('OK'),
+                                  child: const Text('OK'),
                                 ),
                               ],
                             );
@@ -177,18 +185,19 @@ class _RegisterFormState extends State<RegisterForm> {
                       }
                     }
                   },
-                  child: Text('Register'),
+                  child: const Text('Register'),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Center(
                   child: GestureDetector(
                     onTap: () {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => LoginForm()),
+                        MaterialPageRoute(
+                            builder: (context) => const LoginForm()),
                       );
                     },
-                    child: Text(
+                    child: const Text(
                       'Already have an account? Login here',
                       style: TextStyle(
                         color: Colors.blue,
@@ -197,7 +206,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20), // Additional padding at the bottom
+                const SizedBox(height: 20), // Additional padding at the bottom
               ],
             ),
           ),
